@@ -5,9 +5,9 @@ Docker container to make a local json backup of a dynamodb table. Also has a res
 
 In the container:
  
-bash`python3 backup.py TABLE_NAME OUTPUT_FILE`
+bash`python3 backup.py TABLE_NAME OUTPUT_DIR`
 
-Backs up TABLE_NAME to OUTPUT_FILE
+Backs up TABLE_NAME to a json file in OUTPUT_DIR
 
 You can get the file out of the container in the usual ways (probably a volume)
 
