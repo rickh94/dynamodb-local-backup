@@ -2,3 +2,4 @@ testing/docker/data
 *.json
 data
 testing
+testing.py

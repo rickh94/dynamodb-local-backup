@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Update Report</title>
+    <style>
+        @font-face {
+            font-family: Lora;
+            font-weight: normal;
+            font-style: normal;
+            src: url('assets/Lora-Regular.ttf');
+        }
+
+        @font-face {
+            font-family: Lora;
+            font-weight: bold;
+            font-style: normal;
+            src: url('assets/Lora-Bold.ttf');
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: Lora, serif;
+        }
+
+        @page {
+            size: Letter;
+            margin: 0.5in;
+        }
+
+        .flex {
+            display: flex;
+        }
+
+        .flex-col {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .justify-start {
+            justify-content: start
+        }
+
+        .justify-center {
+            justify-content: center;
+        }
+
+        .mt-2 {
+            margin-top: 0.5rem;
+        }
+
+        .my-2 {
+            margin-top: 0.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .m-2 {
+            margin: 0.5rem;
+        }
+
+        .mx-2 {
+            margin-left: 0.5rem;
+            margin-right: 0.5rem;
+        }
+
+        .w-full {
+            width: 100%;
+        }
+
+        .text-left {
+            text-align: left;
+        }
+
+        .text-gray {
+            color: gray;
+        }
+
+        .text-red {
+            color: darkred;
+        }
+
+        .text-green {
+            color: darkgreen;
+        }
+
+        .font-bold {
+            font-weight: bold;
+        }
+
+        .border-b {
+            border-bottom: 1px solid black;
+        }
+
+        .border-b-2 {
+            border-bottom: 2px solid black;
+        }
+
+        .border-dark-gray {
+            border-color: darkgray;
+        }
+
+        .pb-1 {
+            padding-bottom: 0.25rem;
+        }
+
+        .border-collapse {
+            border-collapse: collapse;
+        }
+
+        td, th {
+            padding: 0.25rem 0;
+        }
+    </style>
+</head>
+<body>
+<header class="m-2 w-full">
+    <h2>{{ title }} Changes Report</h2>
+    <h5 class="text-gray">on {{ date }}</h5>
+</header>
+<main>
+    <table class="w-full mx-2 border-collapse">
+        <thead>
+        <tr>
+            <th class="w-1/2 text-left border-b-2 border-dark-gray">Before</th>
+            <th class="w-1/2 text-left border-b-2 border-dark-gray">After</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for entry in data %}
+        <tr>
+            <td class="border-b">
+            {% if entry.get('old') %}
+                {% for key, name in attributes.items() %}
+                    <p
+                        {% if entry['old'].get(key) != entry['new'].get(key) %}
+                        class="text-red"
+                        {% endif %}
+                    >
+                        <span class="font-bold">{{ name }}:</span>&nbsp;
+                        {{ entry['old'].get(key, '') }}
+                    </p>
+                {% endfor %}
+            {% else %}
+                <p>New Instrument</p>
+            {% endif %}
+            </td>
+            <td class="border-b">
+                {% for key, name in attributes.items() %}
+                    <p
+                        {% if entry.get('old', {}).get(key) != entry['new'].get(key) %}
+                            class="text-green"
+                        {% endif %}
+                    ><span class="font-bold">{{ name }}:</span>&nbsp;
+                        {{ entry['new'].get(key, '') }}
+                    </p>
+                {% endfor %}
+            </td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+</main>
+</body>
+</html>
